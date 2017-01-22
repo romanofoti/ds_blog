@@ -597,16 +597,13 @@ sns.pairplot(input_filled_df.iloc[:,np.hstack(([0],range(21,31)))],diag_kind='kd
 fig4 = plt.figure(figsize=(16,16));
 sns.pairplot(input_filled_df.iloc[:,np.hstack(([0],range(31,42)))],diag_kind='kde',hue='response',palette='Set1');
 ```
+{% include image.html img="images/eca_post_imgs/c1.png" title="corr1" width="900" %}
 
-![png]({{ site.url }}/images/eca_post_imgs/eca_01.png)
+{% include image.html img="images/eca_post_imgs/c2.png" title="corr2" width="900" %}
 
-![png]({{ site.url }}/images/eca_post_imgs/eca_02.png)
+{% include image.html img="images/eca_post_imgs/c3.png" title="corr3" width="900" %}
 
-![png]({{ site.url }}/images/eca_post_imgs/eca_03.png)
-
-
-![png]({{ site.url }}/images/eca_post_imgs/eca_04.png)
-
+{% include image.html img="images/eca_post_imgs/c4.png" title="corr4" width="900" %}
 
 <b> Insights: </b>
 - The number of negative responses, in blue, usually masks the distribution of positive responses, making it difficult to identify patterns
@@ -621,7 +618,7 @@ sns.pairplot(input_filled_df.iloc[:,np.hstack(([0],range(31,42)))],diag_kind='kd
 heatmap_corr(input_filled_df) #custom built function to produce a heatmap using seaborn
 ```
 
-![png]({{ site.url }}/images/eca_post_imgs/eca_05.png)
+{% include image.html img="images/eca_post_imgs/heat_map.png" title="heatmap" width="900" %}
 
 
 
@@ -629,14 +626,14 @@ heatmap_corr(input_filled_df) #custom built function to produce a heatmap using 
 input_filled_df.plot(kind='scatter', x='var_3',y='var_4')
 ```
 
-![png]({{ site.url }}/images/eca_post_imgs/eca_06.png)
+{% include image.html img="images/eca_post_imgs/sc1.png" title="scatter1" width="600" %}
 
 
 ```
 input_filled_df.plot(kind='scatter', x='var_26',y='var_27')
 ```
 
-![png]({{ site.url }}/images/eca_post_imgs/eca_07.png)
+{% include image.html img="images/eca_post_imgs/sc2.png" title="scatter2" width="600" %}
 
 
 ## 3. Data manipulation and feature engineering
@@ -679,7 +676,7 @@ Notice that now the heatmap shows no correlation among features.
 heatmap_corr(transf_signals_df)
 ```
 
-![png]({{ site.url }}/images/eca_post_imgs/eca_08.png)
+{% include image.html img="images/eca_post_imgs/heat_map2.png" title="heatmap_no_corr" width="900" %}
 
 
 ## 3.2. Dealing with class imbalance
@@ -772,7 +769,7 @@ ax = sns.boxplot(x="Classifier", y="Score", hue="Score_type", data=metrics_df, l
 metrics_df.to_pickle(onput_path + 'metrics_df.pkl') #saving results
 ```
 
-![png]({{ site.url }}/images/eca_post_imgs/eca_09.png)
+{% include image.html img="images/eca_post_imgs/model_comparison.png" title="model_comparison" width="800" %}
 
 
 <b>Insights:</b>
@@ -828,9 +825,7 @@ print 'Recall = ', '{:.2}'.format(recall)
     precision =  0.67
     Recall =  0.62
 
-
-
-![png]({{ site.url }}/images/eca_post_imgs/eca_10.png)
+{% include image.html img="images/eca_post_imgs/CM.png" title="Confusion matrix" width="500" %}
 
 
 ## 5.2. Cross-validated ROC curve
@@ -845,7 +840,7 @@ cross_valid_roc(resampled_signals_df,resampled_response_sr,Classifier, Folds = 5
 ```
 
 
-![png]({{ site.url }}/images/eca_post_imgs/eca_11.png)
+{% include image.html img="images/eca_post_imgs/ROC5.png" title="ROC" width="800" %}
 
 
 ### 5.3. Learning Curves
@@ -865,14 +860,14 @@ plot_learning_curves(Classifier, resampled_signals_df, resampled_response_sr, ti
 #---------------------------
 ```
 
-![png]({{ site.url }}/images/eca_post_imgs/eca_12.png)
+{% include image.html img="images/eca_post_imgs/learning_c.png" title="learning curves" width="600" %}
 
 
 <b>Insights:</b>
 
 None of the metrics above are outstanding at this point. The model appears to be overfitting and the ROC curve shows that the confidence on the predictions is not great.
 
-A graph of feature importance is provided below. At this point, however, this is not particularly meaningful, as it would be necessary to transform the features back to the original predictors.
+A graph of feature importance is provided below. At this point, however, this is not particularly meaningful, as it would be necessary to transform the features back to the original predictors to understand which of them play the most important roles in the outcome.
 
 
 ```
@@ -892,36 +887,36 @@ plt.savefig(onput_path + 'FeatureImportance.png', dpi=600, bbox_inches='tight')
 ```
 
 
-![png]({{ site.url }}/images/eca_post_imgs/eca_13.png)
+{% include image.html img="images/eca_post_imgs/eca_13.png" title="gini importance" width="500" %}
 
 
 # 6. Identification and investigation of actionable insights
 
-In this section, I identify a business problem that could be of interest at *** and use the model results to inform a potential business decision.
+In this section, I identify a possible business problem (that is, I assume that the response variable has a business meaning) and use the model results to inform a potential business decision.
 
 <b> Business Problem: </b>
 
-One typical business problem at *** may be identifying which business is more likely to default, provided a set of metrics. While I do not know exactly what the data is, I would expect that the typical structure of the datasets used to tackle the above business problem could be not too different from the dataset that was provided to me. For the sake of the argument, I will make the following assumptions:
+Let us assume that the response represents customer curn on a particular website/subscription. Obviously, something like a churn rate would be important to predict, so that some customer retention measures can be taken. For the sake of the argument, I will make the following assumptions:
 
-- A value of 1 in the response variable corresponds to business that defaulted
-- We want our model to be able to identify the businesses that are more likely to default
-- Each business that is identifies as "likely to default" will need to be throughouly reviewed by humans
-- There is a limited capacity to review cases
+- A value of 1 in the response variable corresponds to a customer that unsuscribes
+- We want our model to be able to identify the customers that are more likely to unsuscribe based on a certain measurable metrics
+- Each customer that is identified as "likely to unsubscribe" will trigger some "retention action" (for instance, a deal is offered to the customer)
+- There is a cost for each "retention action", which implies that we want to minimize the number of actions taken, especially for customers that were wrongly identified as likely to unsuscribe
 
 <b> Question: </b>
 
-How do I set a classification threshold so as to optimize the combination of cost of reviewing and costs of lending to a business that is likely to default?
+How do I set a classification threshold so as to optimize the combination of cost of retention actions and costs of losing the customer?
 
 <b> Approach: </b>
 
 I will look a the following factors:
 
 
-<b> precision: </b> What's the downside of erroneously sending a case for review (false positive)? A low precision will cost reviewers time and money to review a business that is not going to default.
+<b> Precision: </b> What's the downside of erroneously identifying a customer as likely to unsuscribe (false positive)? A low precision will cost time, money and could potentially hurt the relationship with the customer.
 
-<b> Recall: </b> What's the downside when you fail to review a case that should have been reviewed (false negative)? A low recall will result in lending money to businesses that are bound to fail.
+<b> Recall: </b> What's the downside when you fail to take action for a customer that would otherwise unsuscribe (false negative)? A low recall will result in neglect customers that unsuscribe.
 
-<b> Review Rate: </b> How many cases can be reviewed? This depends on the cost of treating an individual case, as well as on the overall capacity.
+<b> Review Rate: </b> How many actions can be taken overall? This depends on the cost of treating an individual case (how much offering a one-time deal to a customer that is aboud to unsucribe will cost our business), as well as on the overall capacity.
 
 
 ## 6.1. precision-Recall-Review_rate curves
@@ -965,23 +960,24 @@ plt.ylabel('Proportion')
 #---------------------------
 ```
 
-![png]({{ site.url }}/images/eca_post_imgs/eca_14.png)
+{% include image.html img="images/eca_post_imgs/prec_recall.png" title="precision-recall curves" width="800" %}
+
 
 
 <b> Insights: </b>
 
-precision, Recall and Review rate are expressed as a proportion of total number of cases for each threshold selected for the classifier. For exaple, chosing the default threshold of 0.5 would imply:
+Precision, Recall and Review rate are expressed as a proportion of total number of cases for each threshold selected for the classifier. For exaple, chosing the default threshold of 0.5 would imply:
 
-- About 50% of the cases are sent to review
-- precision is ~60%, meaning that 60% of the reviewed cases would correspond to business which would actually default
-- Recall is ~50%, which implies that about 50% of the businesses that will default will not be reviewed
+- A "retention action" is taken in about 50% of the cases
+- Precision is ~60%, meaning that 60% of the customers that are predicted as likely to unsuscribe ultimately will
+- Recall is ~50%, which implies that about 50% of the customers that will unsuscribe will not be considered for any "retention action"
 
 The optimal choice of the threshold ultimately depends on the physical and financial constraints of the business.
 
-For instance, if *** is limited to be able to review only ~15% of the cases, a threshold of about 0.8 will need to be chosen, in which case:
+For instance, if the business is limited to be able to give a one-time deal only to ~15% of the customers, a threshold of about 0.8 will need to be chosen, in which case:
 
-- precision is ~82%, meaning that 82% of the reviewed cases would correspond to business which would actually default
-- Recall is ~22%, which implies that about 78% of the businesses that will default will not be reviewed
+- Precision is ~82%, meaning that 82% of the customers identified as potential unsuscribers would actually have unsuscribed outherwise
+- Recall is ~22%, which implies that about 78% of the businesses that will unsuscribe will not be given any deal
 
 
 ## 6.2. precision-Recall-Review_rate curves: uncertainty analysis
@@ -1072,21 +1068,21 @@ plt.ylabel('Proportion')
 
 ```
 
-![png]({{ site.url }}/images/eca_post_imgs/eca_15.png)
+{% include image.html img="images/eca_post_imgs/prec_recall_uncer.png" title="precision-recall uncertainty curves" width="800" %}
 
 
 <b> Insights: </b>
 
 There is not a great variability across random splits. In this case, for the threshold 0.8 as above, it is expected:
 
-- A 90% probability that the cases sent to review will be between 14% and 16%
-- precision is between 78% and 81% with 90% probability
+- A 90% probability that the cases where an action is taken will be between 14% and 16%
+- Precision is between 78% and 81% with 90% probability
 - Recall is between 21% and 23% with 90% probability
 
 
 <b> Concluding remarks </b>
 
-- A more complete analysis of the optimal threshold would require knowledge of the costs associated with reviewing and default
+- A more complete analysis of the optimal threshold would require knowledge of the costs associated with taking action, as well as losing the customer altogether
 - A better model would have better precision and recall metrics across all thresholds, which would result in smaller review rates for each desired precision and recall level.
 
 # 7. Appendix
