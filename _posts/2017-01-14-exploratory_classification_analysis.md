@@ -93,9 +93,6 @@ Results and insights of this sections are reported in the subsections below.
 input_df.describe()
 ```
 
-
-
-
 <div style="max-width:1500px;overflow:auto;">
 <table border="1" class="dataframe">
   <thead>
@@ -323,7 +320,6 @@ input_df.describe()
 </div>
 
 
-
 Estimating how many columns contain missing data.
 
 
@@ -341,9 +337,6 @@ Exploring the characteristics of the dataset for those rows where missing data i
 ```
 input_df.iloc[inds].describe()
 ```
-
-
-
 
 <div style="max-width:1500px;overflow:auto;">
 <table border="1" class="dataframe">
@@ -572,7 +565,6 @@ input_df.iloc[inds].describe()
 </div>
 
 
-
 <b>Note:</b> Eliminating the ~23% of rows containing missing data would leave us with ~100k columns, probably sufficient not to lose information. However, looking at the distribution of responses in the subsection of the dataset with missing data, one can see that positive responses now account for ~13% of the total. This suggest that it is not wise to ignore rows with missing data altogether. I choose to keep those rows and fill the missing data in the given cell with the mean of the respective column. 
 
 
@@ -611,8 +603,7 @@ sns.pairplot(input_filled_df.iloc[:,np.hstack(([0],range(31,42)))],diag_kind='kd
 - The distributions of predictors are variable in shape
 - Some predictors display different distributions in when the response is positive than when the response is negative
 
-### Further exploring correlations:
-
+#### 2.2.1. Further exploring correlations:
 
 ```
 heatmap_corr(input_filled_df) #custom built function to produce a heatmap using seaborn
@@ -679,7 +670,7 @@ heatmap_corr(transf_signals_df)
 {% include image.html img="images/eca_post_imgs/heat_map2.png" title="heatmap_no_corr" width="900" %}
 
 
-## 3.2. Dealing with class imbalance
+### 3.2. Dealing with class imbalance
 
 Model performance can be affected by imbalance in the responses. Most models have out-of-the-box built-in functions (e.g. autoweight) to penalize wrong predicitions of the less represented class. I make use of that. However, I also resample to rebalance classes. In this exercise, I perform a one-time random undersampling of the dataset. The resulting dataset will be significantly smaller, but this will actually make the computations faster and more suitable for prototyping.
 
@@ -702,7 +693,7 @@ resampled_response_sr = resampled_df['response'].values
 #---------------------------
 ```
 
-# 4. Model prototyping and comparison among models
+## 4. Model prototyping and comparison among models
 
 A set of models are compared out of the box to identify the most promising ones for further development.
 
@@ -776,7 +767,7 @@ metrics_df.to_pickle(onput_path + 'metrics_df.pkl') #saving results
 
 Tree-based algorithms appear to be the best performers. The metrics are not outstanding and could be improved by further feature engineering and tuning, though. Random Forest will be used as a model of choice for further validation, the choice based on compromise between speed and performance.
 
-# 5. Validation of chosen model
+## 5. Validation of chosen model
 
 The Random Forest classifier is further validated by means of:
 
@@ -828,7 +819,7 @@ print 'Recall = ', '{:.2}'.format(recall)
 {% include image.html img="images/eca_post_imgs/CM.png" title="Confusion matrix" width="500" %}
 
 
-## 5.2. Cross-validated ROC curve
+### 5.2. Cross-validated ROC curve
 
 
 ```
@@ -890,7 +881,7 @@ plt.savefig(onput_path + 'FeatureImportance.png', dpi=600, bbox_inches='tight')
 {% include image.html img="images/eca_post_imgs/eca_13.png" title="gini importance" width="500" %}
 
 
-# 6. Identification and investigation of actionable insights
+## 6. Identification and investigation of actionable insights
 
 In this section, I identify a possible business problem (that is, I assume that the response variable has a business meaning) and use the model results to inform a potential business decision.
 
@@ -1085,9 +1076,9 @@ There is not a great variability across random splits. In this case, for the thr
 - A more complete analysis of the optimal threshold would require knowledge of the costs associated with taking action, as well as losing the customer altogether
 - A better model would have better precision and recall metrics across all thresholds, which would result in smaller review rates for each desired precision and recall level.
 
-# 7. Appendix
+## 7. Appendix
 
-## 7.1. Functions used in the model
+### 7.1. Functions used in the model
 
 
 ```
