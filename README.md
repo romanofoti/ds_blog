@@ -2,7 +2,7 @@
 
 # Jekyll Powered Blog
 
-Author: Romano Foti
+**Author**: Romano Foti
 
 ## Notes on the development
 
