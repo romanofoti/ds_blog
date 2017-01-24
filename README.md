@@ -12,5 +12,5 @@ This blog uses the jekyll template **Jekyll Now** a simple, ready to use, layout
 
 ## Credits
 
-[Jekyll](https://github.com/jekyll/jekyll)
-[Barry Clark](https://github.com/barryclark)
+- [Jekyll](https://github.com/jekyll/jekyll)
+- [Barry Clark](https://github.com/barryclark)
