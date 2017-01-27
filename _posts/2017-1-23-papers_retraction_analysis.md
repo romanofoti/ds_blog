@@ -10,6 +10,7 @@ I first thought about this problem when I was approached by a journalist that wa
 ## Approach
 
 Having no specific question on the agenda, I took the following approach for this analysis:
+
  - Parsing of the datasets
  - Manipulation of the dataset
  - Exploratory analysis with simple stastics and graphs
