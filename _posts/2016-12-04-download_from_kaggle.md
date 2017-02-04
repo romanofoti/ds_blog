@@ -33,9 +33,9 @@ How does the class look like?
 ```python
 class DataDownloader():
 
-    def __init__(self, cred_file=None, verbose=True, logger=None)):
+    def __init__(self, cred_file=None, verbose=True, logger=None):
         self.cred_file = cred_file
-   		self.verbose = verbose
+        self.verbose = verbose
         self.logger = logger
     #end
 
@@ -44,12 +44,13 @@ class DataDownloader():
         Downloads and unzips datasets from Kaggle
 
         '''
+        logger = self.logger
         if url_dc==None:      
-            logger.info('Error: Dictionary of downloading URLs needs to be provided!')
+            log_or_print('Error: Dictionary of downloading URLs needs to be provided!', logger=logger)
         #end
         for ds, url in zip(url_dc.keys(), url_dc.values()):
-            logger.info('Downloading and unzipping %s ...' %ds)
-            KaggleRequest(credentials_file=self.cred_file, verbose=self.verbose, logger=self.logger).retrieve_dataset(url)
+            log_or_print('Downloading and unzipping %s ...' %ds, logger=logger)
+            KaggleRequest(logger=logger).retrieve_dataset(url)
         #end
         return
     #end
@@ -62,6 +63,7 @@ class DataDownloader():
 This class handles the request. In the form below, the class can handle a logger and has a verbose or silent mode. Additionally, it requires the following libraries: sys, requests, base64, zipfile.
 
 Here is the gist of the class:
+
  - You initialize it with information about logger, verbose status and credentials
  - The method retrieve_dataset does the lifting, by establishing the connection with Kaggle, posting the request and downloading the data
  - The name of the dataset can be provided by the user. If not, it is inferred by the url.
@@ -121,12 +123,7 @@ class KaggleRequest():
         #end
         z.close()
         if self.verbose:
-            if not self.logger:
-                print 'File successfully unzipped!'
-                sys.stdout.flush()
-            else:
-                self.logger.info('File successfully unzipped!')
-            #end
+            log_or_print('File successfully unzipped!', logger=logger)
         #end
         return
     #end
@@ -138,32 +135,17 @@ class KaggleRequest():
         '''
         if not data_url:
             if self.verbose:
-                if not self.logger:
-                    print 'A data URL needs to be provided.'
-                    sys.stdout.flush()
-                else:
-                    self.logger.info('A data URL needs to be provided.')
-                #end
+                log_or_print('A data URL needs to be provided.', logger=logger)
             #end
         if not local_filename:
             try:
                 local_filename = './' + data_url.split('/')[-1]
                 if self.verbose:
-                    if not self.logger:
-                        print 'Dataset name inferred from data_url. It is going to be saved in the default location.'
-                        sys.stdout.flush()
-                    else:
-                        self.logger.info('Dataset name inferred from data_url. It is going to be saved in the default location.')
-                    #end
+                    log_or_print('Dataset name inferred from data_url. It is going to be saved in the default location.', logger=logger)
                 #end
             except:
                 if self.verbose:
-                    if not self.logger:
-                        print 'Could not infer data name, request terminated.'
-                        sys.stdout.flush()
-                    else:
-                        self.logger.info('Could not infer data name, request terminated.')
-                    #end
+                    log_or_print('Could not infer data name, request terminated.', logger=logger)
                 #end
                 return
             #end
@@ -180,12 +162,7 @@ class KaggleRequest():
         #end
         f.close()
         if self.verbose:
-            if not self.logger:
-                print 'Data successfully downloaded!'
-                sys.stdout.flush()
-            else:
-                self.logger.info('Data successfully downloaded!')
-            #end
+            log_or_print('Data successfully downloaded!', logger=logger)
         #end
         if unzip:
             self.unzip(local_filename)
@@ -197,3 +174,21 @@ class KaggleRequest():
 ```
 
 Obviously, there is much room for customization and improvement, but I hope you will find this helpful to get started.
+
+#### Appendix
+
+As you may have noticed, I make use of the function log_or_print() throughout. It is a helper function that I created for myself to make sure I either print messages on the screen or log them in a logger file. If a logger - initialized and configured as a python logger - is passed, then the log is saved in the logfile, otherwise it is simply printed as command line output.
+
+Here is the function:
+
+```python
+def log_or_print(message, logger=None):
+    if not logger:
+        print message
+        sys.stdout.flush()
+    else:
+        logger.info(message)
+    #end
+    return
+#end
+```
