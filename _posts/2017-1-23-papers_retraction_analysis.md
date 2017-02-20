@@ -154,6 +154,7 @@ plt.xticks(rotation=90);
 
 
 Ok, this is interesting.
+
 - First, there appears to be almost no overlap between the populations of "first authors", "last authors" and "middle authors", at least not for the most notable contributors to the retraction database. In other words, the people that are the "workers" of the retracted paper, usually the first authors, are not present much as "supervisors", typicall last authors, and vice versa. Additionally, there is a big group of "contributors", which do not overlap with the previous two categories, but that rack up a good deal of retracted papers. I wonder why that is!
 - Second, I was not very lungimirant when I extracted the data and now I am left with fields populated by names (first and last author) and fields populated by lists (middle authors). I will need to unpack the dataset and build an author-centric DataFrame.
 - Third, well, this is another bit of a problem. I am afraid that the original database was not consistent in recording the names of the authors. I have very good reason (well, because I explored the records more as soon as I noticed this) to believe that Fujii Yoshitaka and Fujii Y. can be actually the same person. A little exploration suggests that this is not an isolated case. Unfortunately, this will need to be fixed manually...
