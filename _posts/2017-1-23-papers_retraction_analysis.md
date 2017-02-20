@@ -312,6 +312,7 @@ plt.xticks(rotation=90);
 
 
 I personally find this plot quite informative. Here is what we can say:
+
  - The top 5 authors have over 35 retractions (each!) under their belts
  - There are over 30 people with more than 10 retractions
  - A good number of authors appear to have a habit of being in the middle pack of the authorshio of retracted papers
@@ -330,6 +331,7 @@ To this aim, I take advantage of the networks library in python and start buildi
 #### Building nodes and edges
 
 I follow the directions in the Networkx library documentation regarding how to build the graph. Some boilerplate functions are provided in appendix, but the main idea is to have:
+
  - One node for each author, with attributes describing total retraction count, and the individual counts as first, last or middle author
  - One edge for each co-authoship, with weight assigned based on how many retracted papers are shared by the given two authors
 
@@ -389,6 +391,7 @@ nx.draw_networkx_labels(Top_n_auth_G, pos, node_size=node_size_ls, width=edge_we
 
 
 There still is a lot of stuff overlapping in the graph, but a few things are quite evident:
+
  - The top 8 authors by retraction count make up 6 independent clusters
  - The first, second and fourth author by retraction count make up (and dominate!) one cluster, which is not that big overall
  - The cluster belongning to the 7th top author is the overall bigger one
@@ -513,6 +516,7 @@ nx.draw_networkx_labels(Top_n_mddl_auth_G, pos, node_size=node_size_ls, width=ed
 
 
 That is some pretty graph. Let us see if we can make sense of it.
+
  - Once again, we can identify a number of clusters smaller than 8, 4 precisely.
  - A pattern of "teams" of middle authors appear to arise, with some people having the tendency to participate in each other's retracted papers.
  - A few authors appear to bridge across teams and co-author retracted papers in different areas or across different research groups
