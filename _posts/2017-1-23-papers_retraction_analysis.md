@@ -312,29 +312,31 @@ plt.xticks(rotation=90);
 {% include image.html img="images/retraction_analysis_post/retraction_analysis_post_53_0.png" title="retraction count summary" width="900" %}
 
 
-I personally find this plot quite informative. Here is what we can say:
+I personally find this plot quite informative. Here are a few things we can say:
 
  - The top 5 authors have over 35 retractions (each!) under their belts
- - There are over 30 people with more than 10 retractions
- - A good number of authors appear to have a habit of being in the middle pack of the authorshio of retracted papers
- - With very few exceptions, authors contribute in a predominant way, either first, last or middle author, to their total retraction count
+ - There are more than 30 people with at least 10 retractions
+ - Most authors tend to be first author OR middle author OR last author
+ - A good number of authors appear to have a habit of being in the middle of the pack of the authorship of retracted papers
+ 
+
 
 ### Network analysis
 
-An important part is missing to make something more than superficial out of the story so far. We have seen that a good number of authors have a lot of retracted paper in their academi CV. We have not investigated the reason for retraction in any of those cases, but it is reasonable to believe that each one of them is at least academically "negligent". Additionally, we have seen that authors are somewhat "specialized" in retracted papers, that is, some of them tend to be the first author of retracted papers, other the last, other appear everywhere else in the authorship list. This begs the questions:
+An important part is missing to make something more than superficial out of the story so far. We have seen that a good number of authors have a lot of retracted papers in their academis CV. We have not investigated the reason for retraction in any of those cases, but it is reasonable to believe that each one of them is at least academically "negligent". Additionally, we have seen that authors are somewhat "specialized" in retracted papers, that is, some of them tend to be the first author of retracted papers, others the last, others appear everywhere else in the authorship list. This begs the questions:
 
  - Are there "pockets" of academic negligence?
  - Can we identify clusters of people that have contributed substantially to the academic papers' retraction records?
 
-In order to answer these questions, I look into the co-authorship distribution and analyze the "network" of retraction using graphs. 
-To this aim, I take advantage of the networks library in python and start building the graph.
+In order to answer these questions, I look into the co-authorship distribution and analyze the "network" of retractions using graphs. 
+To this aim, I take advantage of the NetworkX library in python and start building the graph.
 
 #### Building nodes and edges
 
-I follow the directions in the Networkx library documentation regarding how to build the graph. Some boilerplate functions are provided in appendix, but the main idea is to have:
+I follow the directions in the NetworkX library documentation regarding how to build the graph. Some boilerplate functions are provided in the appendix, but the main idea is to have:
 
  - One node for each author, with attributes describing total retraction count, and the individual counts as first, last or middle author
- - One edge for each co-authoship, with weight assigned based on how many retracted papers are shared by the given two authors
+ - One edge for each co-authorship, with weight assigned based on how many retracted papers are shared by the given two authors
 
 
 ```python
@@ -356,7 +358,7 @@ for co_authors in edge_weight_dbl_dc:
 
 ```
 
-Unfortunately, the above network is extremely large, having about 15k nodes and 50k edges. We need to simplify things. To this aim, I only chose the top 8 authors by retraction count and build the network filtering out any author (and corresponding edge) that does not have at least 1 co-authored retraction with those top 8.
+Unfortunately, the above network is extremely large, having about 15k nodes and 50k edges. We need to simplify things. To this aim, I only choose the top 8 authors by retraction count and build the network filtering out any author (and corresponding edge) that does not have at least 1 co-authored retraction with those top 8.
 
 
 ```python
@@ -395,7 +397,7 @@ There still is a lot of stuff overlapping in the graph, but a few things are qui
 
  - The top 8 authors by retraction count make up 6 independent clusters
  - The first, second and fourth author by retraction count make up (and dominate!) one cluster, which is not that big overall
- - The cluster belongning to the 7th top author is the overall bigger one
+ - The cluster belonging to the 7th top author is the overall biggest one
 
 #### Filtering out edges among minor authors
 
@@ -447,7 +449,7 @@ Unfortunately, the plotting algorithm changes the position of the clusters once 
 
 #### Middle authors graph
 
-As additional analyis, I am going to explore the clustering of middle authors only. That is, I would like to see how the top 8 authors, but middle author retraction count, are connected to the resto of the author population.
+As additional analyis, I am going to explore the clustering of middle authors only. That is, I would like to see how the top 8 authors, but middle author retraction count, are connected to the rest of the author population.
 
 
 ```python
@@ -524,7 +526,7 @@ That is some pretty graph. Let us see if we can make sense of it.
 
 ## Concluding remarks and future analyses
 
-We explore a nice dataset and drew some interesting insights even at this stage where we primarily confined our investigation to some descriptive statistics and plots. A few more questions can be asked, and answered, by this dataset, such as the distribution of retractions over areas of study, or geography, as well as the evolution over time of the retraction statistics and network. With some additional data, we could compare the statistics we found here with some baseline, as well as analyze the impact of the retractions on the scientific world (via, for instance, citation count).
+We explore a nice dataset and drew some interesting insights even at this stage where we primarily confined our investigation to some descriptive statistics and plots. A few more questions can be asked - and answered! - by this dataset, such as the distribution of retractions over areas of study, or geography, as well as the evolution over time of the retraction statistics and network. With some additional data, we could compare the statistics we found here with some baseline, as well as analyze the impact of the retractions on the scientific world (via, for instance, citation count).
 
 ## Appendix
 
