@@ -1348,15 +1348,6 @@ unpacked_summary_df = pd.concat([pd.DataFrame(dict(zip(unpacked_df.columns,
 
 ```
 
-    /usr/local/lib/python2.7/dist-packages/ipykernel/__main__.py:3: SettingWithCopyWarning: 
-    A value is trying to be set on a copy of a slice from a DataFrame.
-    Try using .loc[row_indexer,col_indexer] = value instead
-    
-    See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-      app.launch_new_instance()
-
-
-
 ```python
 author_summary_dc = {'author_name': [], 'title': [], 'ID': [], 'wos_categories': [], 'first_author': [], 
                      'last_author': [], 'middle_author': []}

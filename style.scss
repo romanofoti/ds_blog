@@ -291,6 +291,33 @@ footer {
     }
 }
 
+/**************/
+/* Custom CSS */
+/**************/
+
+table {
+    border:2px solid #e0e0e0;
+    border-radius:3px;
+    font-size: 70%;
+}
+table th {
+    text-align: center;
+    font-weight: bold;
+    padding:1px 2px 2px 1px;
+    border:1px solid #e0e0e0;
+}
+table tr {
+    text-align: center;
+    padding:1px 2px 2px 1px;
+}
+table td {
+    text-align: center;
+    padding:1px 2px 2px 1px;
+    border-top: 1px solid #ffffff;
+    border-bottom:1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
+}
+
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
 @import "highlights";
