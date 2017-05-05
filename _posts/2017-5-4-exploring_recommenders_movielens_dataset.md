@@ -5,9 +5,9 @@ title: Exploring Recommender Systems
 
 Recommender systems are ubiquitous nowadays and they exploit patterns in people's preferences and tastes to provide personalized recommendations to users. Collaborative Filtering Recommenders (CFR) are possibly the most common and powerful engines and are widely used in a variety of domains. 
 
-In this post, I explore several implementations of CFR, to give a taste of their capabilities and performances. To this aim, I use the movielens dataset, a freely available collection go user-based movie ratings that can be downloaded here (TK). As the purpose of this post is primarily educational, I use the small dataset, which contais ~100,000 ratings and ~1,300 tags for ~9,000 movies and ~700 unique users.
+In this post, I explore several implementations of CFR, to give a taste of their capabilities and performances. To this aim, I use the movielens dataset, a freely available collection go user-based movie ratings that can be downloaded <a href="https://grouplens.org/datasets/movielens/" >here</a>. As the purpose of this post is primarily educational, I use the small dataset, which contais ~100,000 ratings and ~1,300 tags for ~9,000 movies and ~700 unique users.
 
-As the movielens dataset is widely known and most of the techniques here implemented have a long history of application, this is only one of the many guides to recommender engines out there, and does not want to be the ultimate one by any means. On the contrary, the work I present in this post is inspired by many sources out there, such as (TK) and (TK), which I encourage the reader to consult as well.
+As the movielens dataset is widely known and most of the techniques here implemented have a long history of application, this is only one of the many guides to recommender engines out there, and does not want to be the ultimate one by any means. On the contrary, the work I present in this post is inspired by many sources out there, such as the excellent <a href="http://www.fast.ai"> fast.ai MOOC</a>, which I encourage the reader to consult as well.
 
 This document is organized as follows:
 
@@ -107,15 +107,9 @@ ratings_df.head(3)
   </table>
 </div>
 
-
-
-
 ```python
 movies_df.head(3)
 ```
-
-
-
 
 <div>
   <table class="dataframe">
@@ -147,8 +141,6 @@ movies_df.head(3)
     </tbody>
   </table>
 </div>
-
-
 
 
 ```python
@@ -207,6 +199,8 @@ def RMSE(pred_ar, truth_ar, matrix=True):
 ```
 
 ## Benchmarking
+
+Whenever a new model or a new implementation of an old one is developed, it is good measure to find reasonable benchmarks against which the performance of the new implementation can be assessed. When working on a cutting-edge research topic, such benckmarks are usually the literature state of the art on the given field. However, basic benchmarks serve the purpose just as well since, in most cases, we want to have an idea of how much we are improving the simplest fast and dirty solution. To this aim, one can ask oneself: what is the simple estimate of the rating that a certain user is going to give to a certain movie? A good answer could be: the average rating that other users have given to the movie. Here, I use this principle to compute three benchmarks: 1) Each user will give a new movie the average of the ratings he or she gave so far; 2) Each user will give a new movie the average of the ratings other users have given to the movie; 3) Each given user will give a new movie the average of the average rating across movies for the given user and the average ratings for the new movie provided by other users. 
 
 
 ```python
@@ -275,6 +269,8 @@ performance_dc = benchmarks(train_df, test_df, n_users, n_movies)
     Averaged User and Movie averages benchmark RMSE: 0.929886343076
 
 
+Based on the RMSE of the benchmarks above, a movie recommendation based on a simple procedure such as assigning the average ratings to unrated movies provides already a reasonable result. One may like to do better, though, so let us see what other routes we can explore.
+ 
 ## Recommender Engines Implementation
 
 In the following paragraphs, I present the implementation of several recommender engines, as mentioned previously. In order to make the presentation consistent, I perform some initial manipulation of the dataset, splitting it into train and test and defining a metrics of performance for the validation of each approach.
@@ -358,7 +354,7 @@ While given a sufficient number of latent factors, it is possible to precisely f
 
 Singular Value Decomposition (SVD) is a common technique of matrix decomposition often used, among other things, for dimensionality reduction. I will not provide a thorough description of the SVD implementation, one can read about it in textbooks or online everywhere, but the gist is to try to represent the user-movie rating matrix as the product of 3 matrices. Such matrices will represent the User latent factors, the Movie latent factors and the "relevance" of the given latent factor for the overall rating of a movie. Much like in dimensionality reduction, only the most relevant latent factors are be selected to build an SVD based recommender system.
 
-A huge drawback of this implementation, is that the rating matrix is usually very sparse and SVD will try to decompose it by considering the missing values as zero. There are techniques to overcome this limitation, some of which are described (TK). As done previously with the cosine similarity approach, I apply SVD on the delta ratings matrix, that is, on the matrix defined as the difference between a given rating and the average rating of the given user.
+A huge drawback of this implementation, is that the rating matrix is usually very sparse and SVD will try to decompose it by considering the missing values as zero. There are techniques to overcome this limitation, some of which are described <a href="https://papers.nips.cc/paper/3208-probabilistic-matrix-factorization.pdf" >here</a>. As done previously with the cosine similarity approach, I apply SVD on the delta ratings matrix, that is, on the matrix defined as the difference between a given rating and the average rating of the given user.
 
 
 ```python
@@ -392,7 +388,7 @@ This Latent Factor Model is very similar to SVD, as they both share the idea tha
 
 Here, however, I make use of embeddings to exclude the missing values from the problem and provide a framework that only focuses on the known ratings. Embeddings are nothing more than lookup functions that, given a certain user and movie, will retrieve the respective latent factors vectors. Embeddings are learned from the ratings through minimization of a loss function, in this case the Mean Squared Error (MSE).
 
-The implementation presented here is courtesy of (TK) with minor modifications and makes use of the keras libraries and functional API.
+The implementation presented here is courtesy of Jeremy Howard at <a href="http://www.fast.ai"> fast.ai</a>, with only minor modifications, and makes use of the keras libraries and functional API.
 
 
 ```python
@@ -437,7 +433,7 @@ performance_dc['Dot Product'] = RMSE(dp_preds_ar, test_df['rating'].values, matr
 
 The matriced multiplication model through embeddings above did not produce very good results. This is likely due to the fact that the bias terms discussed before, that is, the inherent generosity of users and inherent quality of movies, are not factored in the model.
 
-In the implementation below, courtesy of (TK), a bias embedding is added to both users and movies as a simple additive term. All embeddings, both the latent factors and the biases, are then simultaneously learned through gradient descent with MSE loss function and Adam optimizer.
+In the implementation below, a bias embedding is added to both users and movies as a simple additive term. All embeddings, both the latent factors and the biases, are then simultaneously learned through gradient descent with MSE loss function and Adam optimizer.
 
 
 ```python
