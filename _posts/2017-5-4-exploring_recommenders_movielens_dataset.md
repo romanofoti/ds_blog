@@ -513,7 +513,7 @@ performance_dc['Neural Network'] = RMSE(nn_preds_ar, test_df['rating'].values, m
 ```
 
 
-    Neural Network MSE: 0.9085571397
+    Neural Network MSE: 0.89208546115
 
 ## Summary
 
@@ -539,11 +539,11 @@ perf_df.sort_values(by='RMSE', ascending=True).reset_index(drop=True)
         <td>0.815992</td>
       </tr>
       <tr>
-        <td>Dot Product with Bias</td>
-        <td>0.908557</td>
+        <td>Neural Network</td>
+        <td>0.892085</td>
       </tr>
       <tr>
-        <td>Neural Network</td>
+        <td>Dot Product with Bias</td>
         <td>0.908557</td>
       </tr>
       <tr>
