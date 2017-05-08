@@ -21,7 +21,7 @@ Each one of the the above steps is developed and discussed in the various sectio
 The code in this section is used to configure the workspace, preference and to load the input. All the modules used in the data challenge are defined and imported here.
 
 
-```
+```python
 #%%******************************************************************************
 # Importing packages
 #******************************************************************************
@@ -89,7 +89,7 @@ Results and insights of this sections are reported in the subsections below.
 ### 2.1 Input description and missing data handling
 
 
-```
+```python
 input_df.describe()
 ```
 
@@ -323,18 +323,19 @@ input_df.describe()
 Estimating how many columns contain missing data.
 
 
-```
+```python
 inds = pd.isnull(input_df).any(1).nonzero()[0] #create an array with the index of the rows where missing data are present
 print 1.0*len(inds)/len(input_df)
 ```
 
-    0.229411075071
-
+```python
+0.229411075071
+```
 
 Exploring the characteristics of the dataset for those rows where missing data is present.
 
 
-```
+```python
 input_df.iloc[inds].describe()
 ```
 
@@ -568,7 +569,7 @@ input_df.iloc[inds].describe()
 <b>Note:</b> Eliminating the ~23% of rows containing missing data would leave us with ~100k columns, probably sufficient not to lose information. However, looking at the distribution of responses in the subsection of the dataset with missing data, one can see that positive responses now account for ~13% of the total. This suggest that it is not wise to ignore rows with missing data altogether. I choose to keep those rows and fill the missing data in the given cell with the mean of the respective column. 
 
 
-```
+```python
 input_filled_df = input_df.fillna(input_df.mean())
 ```
 
@@ -579,7 +580,7 @@ input_filled_df = input_df.fillna(input_df.mean())
 Notice that a full pairplot is too big for visualization. An acceptable preliminary analysis can be done by looking at sections of pairwise scatter plots, as done below.
 
 
-```
+```python
 fig1 = plt.figure(figsize=(16,16));
 sns.pairplot(input_filled_df.iloc[:,np.hstack(([0],range(1,11)))],diag_kind='kde',hue='response',palette='Set1');
 fig2 = plt.figure(figsize=(16,16));
@@ -605,7 +606,7 @@ sns.pairplot(input_filled_df.iloc[:,np.hstack(([0],range(31,42)))],diag_kind='kd
 
 #### 2.2.1. Further exploring correlations:
 
-```
+```python
 heatmap_corr(input_filled_df) #custom built function to produce a heatmap using seaborn
 ```
 
@@ -613,14 +614,14 @@ heatmap_corr(input_filled_df) #custom built function to produce a heatmap using 
 
 
 
-```
+```python
 input_filled_df.plot(kind='scatter', x='var_3',y='var_4')
 ```
 
 {% include image.html img="images/eca_post_imgs/sc1.png" title="scatter1" width="600" %}
 
 
-```
+```python
 input_filled_df.plot(kind='scatter', x='var_26',y='var_27')
 ```
 
@@ -635,7 +636,7 @@ Given the high correlation displayed among some of the predictors, I make an att
 While this approach is at the expense of interpretability of the predictors, the reduction in complexity is significant.
 
 
-```
+```python
 #-------------------------------------------
 # Separate the predictors (signals) from the response
 #-------------------------------------------
@@ -657,13 +658,14 @@ transf_input_df['response'] = responses #create a full dataframe (including the 
 print signals_Transformed.shape
 ```
 
-    (127945, 27)
-
+```python
+(127945, 27)
+```
 
 Notice that now the heatmap shows no correlation among features.
 
 
-```
+```python
 heatmap_corr(transf_signals_df)
 ```
 
@@ -675,7 +677,7 @@ heatmap_corr(transf_signals_df)
 Model performance can be affected by imbalance in the responses. Most models have out-of-the-box built-in functions (e.g. autoweight) to penalize wrong predicitions of the less represented class. I make use of that. However, I also resample to rebalance classes. In this exercise, I perform a one-time random undersampling of the dataset. The resulting dataset will be significantly smaller, but this will actually make the computations faster and more suitable for prototyping.
 
 
-```
+```python
 #---------------------------
 # Resample (undersampling to balance categories)
 #---------------------------
@@ -707,7 +709,7 @@ The chosen models are:
 Performance is estimated through precision, recall and f-1 score, using 25 separate runs for each model. For each run, a test set is built with 20% of the data. A computationally more expensive model, SVM, is here neglected for the sake of speed.
 
 
-```
+```python
 #******************************************************************************
 # Models Comparison
 #******************************************************************************
@@ -751,7 +753,7 @@ for ic, (cl_name, Classifier) in enumerate(classifier_dc.items()):
 Plotting the results (and saving the dataframe).
 
 
-```
+```python
 #---------------------------
 # Plotting boxplots of model performances
 #---------------------------
@@ -776,7 +778,7 @@ The Random Forest classifier is further validated by means of:
 - Learnign Curves
 
 
-```
+```python
 #******************************************************************************
 # Validating Chosen Classifier
 #******************************************************************************
@@ -797,7 +799,7 @@ Classifier = RandomForestClassifier(n_estimators=100, class_weight='auto', rando
 ### 5.1. Confusion Matrix
 
 
-```
+```python
 #---------------------------
 # Producing the Confusion Matrix
 #---------------------------
@@ -809,12 +811,14 @@ sns.set_style('white') #setting the plotting style
 plot_confusion_matrix(conf_mat, labels, Norm='True', Cmap=plt.cm.gray_r, Fig_counter=1, Title='Random Forest Confusion Matrix') #calls the confusion matrix routine with the test set and prediction set
 precision = precision_score(test_labels, predicted_responses, average='binary')
 recall = recall_score(test_labels, predicted_responses, average='binary')
-print 'precision = ', '{:.2f}'.format(precision)
+print 'Precision = ', '{:.2f}'.format(precision)
 print 'Recall = ', '{:.2}'.format(recall)
 ```
 
-    precision =  0.67
-    Recall =  0.62
+```python
+Precision =  0.67
+Recall =  0.62
+```
 
 {% include image.html img="images/eca_post_imgs/CM.png" title="Confusion matrix" width="500" %}
 
@@ -822,7 +826,7 @@ print 'Recall = ', '{:.2}'.format(recall)
 ### 5.2. Cross-validated ROC curve
 
 
-```
+```python
 #---------------------------
 # Plotting Cross Validated ROC
 #---------------------------
@@ -837,7 +841,7 @@ cross_valid_roc(resampled_signals_df,resampled_response_sr,Classifier, Folds = 5
 ### 5.3. Learning Curves
 
 
-```
+```python
 #---------------------------
 # Plotting learning curve
 #---------------------------
@@ -861,7 +865,7 @@ None of the metrics above are outstanding at this point. The model appears to be
 A graph of feature importance is provided below. At this point, however, this is not particularly meaningful, as it would be necessary to transform the features back to the original predictors to understand which of them play the most important roles in the outcome.
 
 
-```
+```python
 #---------------------------
 # Create a bar plot of feature importance according to GINI index
 #---------------------------
@@ -915,7 +919,7 @@ I will look a the following factors:
 To address all these factors at once, a chart that shows precision, recall and review rate as a function of the classifier threshold is produced below. This allows to identify the tradeoffs for different thresholds and to make the optimal business decision.
 
 
-```
+```python
 #******************************************************************************
 # Actionable Insights: Thresholding (1/2)
 #******************************************************************************
@@ -976,7 +980,7 @@ For instance, if the business is limited to be able to give a one-time deal only
 The chart above only shows the performance of a single train/test split. Below, I present the distribution of precision, recall and review rate for an ensemble of random train/test splits, in order to get an idea of the range of possible performance outcomes. The solid lines represent the median precision, recall and review rates, while the shaded areas represent the respective 10% and 90% quantiles.
 
 
-```
+```python
 #******************************************************************************
 # Actionable Insights: Thresholding (2/2)
 #******************************************************************************
@@ -1081,7 +1085,7 @@ There is not a great variability across random splits. In this case, for the thr
 ### 7.1. Functions used in the model
 
 
-```
+```python
 #******************************************************************************
 # Define the functions
 #******************************************************************************

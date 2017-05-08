@@ -151,10 +151,11 @@ print 'Number of Movies: ' + str(n_movies)
 print 'Matrix sparcity: ' + str(100.0 - (100.0 * len(ratings_df) / (n_users * n_movies))) + ' %'
 ```
 
-    Number of Users: 671
-    Number of Movies: 9066
-    Matrix sparcity: 98.3560858391 %
-
+```python
+Number of Users: 671
+Number of Movies: 9066
+Matrix sparcity: 98.3560858391 %
+```
 
 ## Preliminary Manipulations
 
@@ -264,10 +265,11 @@ def benchmarks(train_df, test_df, n_users, n_movies, performance_dc=None, verbos
 performance_dc = benchmarks(train_df, test_df, n_users, n_movies)
 ```
 
-    User average benchmark RMSE: 0.965366436781
-    Movie average benchmark RMSE: 0.999052599878
-    Averaged User and Movie averages benchmark RMSE: 0.929886343076
-
+```python
+User average benchmark RMSE: 0.965366436781
+Movie average benchmark RMSE: 0.999052599878
+Averaged User and Movie averages benchmark RMSE: 0.929886343076
+```
 
 Based on the RMSE of the benchmarks above, a movie recommendation based on a simple procedure such as assigning the average ratings to unrated movies provides already a reasonable result. One may like to do better, though, so let us see what other routes we can explore.
  
@@ -340,9 +342,10 @@ performance_dc['User-based Cosine Similarity'] = RMSE(user_pred_mx, truth_test_m
 performance_dc['Movie-based Cosine Similarity'] = RMSE(movie_pred_mx, truth_test_mx)
 ```
 
-    User-based Cosine Similarity RMSE: 0.920526234083
-    Item-based Cosine Similarity RMSE: 0.815992426671
-
+```python
+User-based Cosine Similarity RMSE: 0.920526234083
+Item-based Cosine Similarity RMSE: 0.815992426671
+```
 
 ### Model-Based Collaborative Filtering
 
@@ -379,8 +382,9 @@ print 'SVD MSE: ' + str(RMSE(svd_pred_mx, truth_test_mx))
 performance_dc['SVD'] = RMSE(svd_pred_mx, truth_test_mx)
 ```
 
-    SVD MSE: 0.945549294143
-
+```python
+SVD MSE: 0.945549294143
+```
 
 #### Matrices Multiplication
 
@@ -426,8 +430,9 @@ print 'Dot Product MSE: ' + str(RMSE(dp_preds_ar, test_df['rating'].values, matr
 performance_dc['Dot Product'] = RMSE(dp_preds_ar, test_df['rating'].values, matrix=False)
 ```
 
-    Dot Product MSE: 1.21001928331
-
+```python
+Dot Product MSE: 1.21001928331
+```
 
 #### Matrices Multiplication with Bias Term
 
@@ -477,8 +482,9 @@ print 'Dot Product Model with Bias MSE: ' + str(RMSE(bias_preds_ar, test_df['rat
 performance_dc['Dot Product with Bias'] = RMSE(bias_preds_ar, test_df['rating'].values, matrix=False)
 ```
 
-    Dot Product Model with Bias MSE: 0.9085571397
-
+```python
+Dot Product Model with Bias MSE: 0.9085571397
+```
 
 #### Neural Network Model
 
@@ -512,8 +518,9 @@ print 'Neural Network MSE: ' + str(RMSE(nn_preds_ar, test_df['rating'].values, m
 performance_dc['Neural Network'] = RMSE(nn_preds_ar, test_df['rating'].values, matrix=False)
 ```
 
-
-    Neural Network MSE: 0.89208546115
+```python
+Neural Network MSE: 0.89208546115
+```
 
 ## Summary
 
