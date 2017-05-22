@@ -3,7 +3,7 @@ layout: post
 title: Style over Matter
 ---
 
-I always wanted to be a great painter, able to beautifully mix colors and shapes and create works of art that would mesmerize people. But I was never good enough, so I am writing this post instead. One of the many things about art, and in particular paintings, that always fascinated me is the striking balance between style and substance, technique and content that talented artists apparently seamingless achieve in their work. One, in fact, can be able to exactly replicate objects or shapes, but it is the fashion in which this is done that utlimately makes the difference between a nice picture and a great work of art. But while it is fairly easy to spot a Monet from a Raffaello, it is not trivial to identify the line that separating "style" from the "content" of a picture or image. Well, until this <a href="https://arxiv.org/pdf/1508.06576.pdf" >paper</a> came about, showing that style and content are, in fact, separable and illustrating the procedure to tell a machine to do it for you.
+I always wanted to be a great painter, able to beautifully mix colors and shapes and create works of art that would mesmerize people. But I was never good enough, so I am writing this post instead. One of the many things about art, and in particular paintings, that always fascinated me is the striking balance between style and substance, technique and content that talented artists apparently seamlessly achieve in their work. One, in fact, can be able to exactly replicate objects or shapes, but it is the fashion in which this is done that utlimately makes the difference between a nice picture and a great work of art. But while it is fairly easy to spot a Monet from a Raffaello, it is not trivial to identify the line that separating "style" from the "content" of a picture or image. Well, until this <a href="https://arxiv.org/pdf/1508.06576.pdf" >paper</a> came about, showing that style and content are, in fact, separable, and illustrating the procedure to tell a machine to do it for you.
 
 To this aim, I train a Convolutional Neural Network (CNN) to perform the task of exctracting the style from an image of choice and applying it to another image (of choice as well). The original implementation, which is here reproduced with minor modifications, can be found in the original <a href="https://arxiv.org/pdf/1508.06576.pdf" >paper</a>. For a great overview of the underlying principles of Neural Style Ttransfer (NST) (and beyond!), I highly recommend the excellent fat.ai <a href="http://www.fast.ai">MOOC</a> by Jeremy Howard, as well as the <a href="https://github.com/titu1994/Neural-Style-Transfer"> Neural-Style-Transfer</a> GitHub repository.
 
@@ -26,23 +26,23 @@ The post is intended as a walkthrough of the methodology and provides a complete
 
 ## Overview
 
-NST is based on the principle that CNNs trained on object recognition store image information along their hierarchical architecture in a fashion that is increasingly "explicit". The latter means that, as one goes deeper into the network, the activation layers go from recognizing simple patterns, such as lines or edge/colo conjunctions to capturing the more complex shapes that allow discrimination between objects, as brilliantly illustrated in this pioneering <a href="https://arxiv.org/pdf/1311.2901v3.pdf"> paper</a>.
+NST is based on the principle that CNNs trained on object recognition store image information along their hierarchical architecture in a fashion that is increasingly "explicit". The latter means that, as one goes deeper into the network, the activation layers go from recognizing simple patterns, such as lines or edge/color conjunctions to capturing the more complex shapes that allow discrimination between objects, as brilliantly illustrated in this pioneering <a href="https://arxiv.org/pdf/1311.2901v3.pdf"> paper</a>.
 
-The above principle means that a CNN increasingly cares about the "content" of an image the more deeply one gets into the network, while the higher level pattern that make up the "style" of the image are "somewhat" (some additional processing is actually required to retrieve the style, as discussed more in depth later) stored in the more superficial layers. Therefore, style and content information could be "lifted", respectively, from the superficial and the deeper layers of a CNN, combined and applied back to a "virgin" image, which will be the representation of the content image in the style of the style image.
+The above principle means that a CNN increasingly cares about the "content" of an image the more deeply one gets into the network, while the higher level patterns that make up the "style" of the image are "somewhat" stored (some additional processing is actually required to retrieve the style, as discussed more in depth later) in the more superficial layers. Therefore, style and content information could be "lifted" from the superficial and the deeper layers, respectively, of a CNN, then combined and applied back to a "virgin" image, which will be the representation of the content image in the style of the style image.
 
 The practical procedure to achive the style transfer is the following:
  - Build a CNN. VGG16 with pretrained ImageNet weight is the model of choice.
  - Have the content image pass through the network and store the output at some deep layer(s). This would constitute the "target content".
  - Have the style image pass through the network and store the output at some superficial layer(s). This would constitute the "target style".
  - Define an appropriate loss metric (e.g. MSE).
- - Have a new "virgin" (i.e. random noise) image pass through the network and compute the content loss and the style loss of this image, using the output of the CNN, respectively, at the content layer(s) and style layer(s).
+ - Have a new "virgin" (i.e. random noise) image pass through the network and compute the content loss and the style loss of this image, using the output of the CNN at the content layer(s) and style layer(s), respectively.
  - Instead of updating the weights of the CNN, update the image pixels in order to iteratively minimize the loss between the image and the style and content targets.
 
 The NST will be implemented in Keras (version 2.0.4) with Tensorflow backend (although it should work in Theano without modifications). Notice that, while Keras can be used on top of its supported backends for most applications without explicitly call the backend itself, NST implementation requires an ad-hoc optimization procedure which is not supported natively by Keras API. Therefore, Keras backend will be explicitly called in several occasions to allow for the symbolic definition of the functional graph.
 
 ## Data Loading and Preprocessing
 
-A simple implementation of NST only requires loading one content image and one style image. However, a little preprocessing is necessary in order to make the source images compatible with each other and with the architecture of the the underlying CNN. Here, I use VGG16, which comes right out of the box with pre-trained weights from Keras. To use VGG effectively for tranfer learning, the pixel values of the input images need to be shifted by the average value of ImageNet image channels (because that is how VGG was trained in the first place). Here are two functions that do the pre-process and post-process.
+A simple implementation of NST only requires loading one content image and one style image. However, a little preprocessing is necessary in order to make the source images compatible with each other and with the architecture of the the underlying CNN. Here, I use VGG16, which comes right out of the box with pre-trained weights from Keras. To use VGG effectively for transfer learning, the pixel values of the input images need to be shifted by the average value of ImageNet image channels (because that is how VGG was trained in the first place). Here are two functions that do the pre-process and post-process.
 
 ```python
 def image_preprocess(img_ar):
@@ -66,7 +66,7 @@ def image_postprocess(img_ar, shp):
 #end
 ```
 
-In addition to image processing, one has to make sure that style and content image have the same resolution when they are loaded and converted to numpy arrays.
+In addition to image processing, one has to make sure that style and content images have the same resolution when they are loaded and converted to numpy arrays.
 
 ```python
 path = './'
@@ -106,7 +106,7 @@ def vgg_avgpooling(vgg_model):
 
 ### Defining the Loss Function
 
-Style transfer is achieved iteratively by minimizing a loss function between the computed image and, respectively, the content target and the style target. Separate loss functions are defined for style and content and then combined linearly together to produce the total loss to be minimized.
+Style transfer is achieved iteratively by minimizing a loss function between the computed image and the content target and the style target. Separate loss functions are defined for style and content and then combined linearly together to produce the total loss to be minimized.
 
 To this aim, Keras backend will be called and used to build the computational graph. 
 
@@ -264,7 +264,7 @@ def apply_transfer(eval_obj, n_iter, img, shp, path='./', pref='', save=True, ve
 
 ### Applying the Transfer
 
-Here is the last step, that is, putting everything together and iteratively build an image that combines the style of the style image with the content of the content image.
+Here is the last step, that is, putting everything together and iteratively building an image that combines the style of the style image with the content of the content image.
 
 For this step, it is necessary to define the number of iterations (no recipe for it, just enough so that the model converges), the ratio between content and style in the image, the weights to be applied to each style (and/or content) layer and a set of objects necessary to feed the optimizer. Then, the model is ready to run!
 
