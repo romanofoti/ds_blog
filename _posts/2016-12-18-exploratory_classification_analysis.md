@@ -914,7 +914,7 @@ I will look a the following factors:
 <b> Review Rate: </b> How many actions can be taken overall? This depends on the cost of treating an individual case (how much offering a one-time deal to a customer that is aboud to unsucribe will cost our business), as well as on the overall capacity.
 
 
-## 6.1. precision-Recall-Review_rate curves
+## 6.1. Precision-Recall-Review curves
 
 To address all these factors at once, a chart that shows precision, recall and review rate as a function of the classifier threshold is produced below. This allows to identify the tradeoffs for different thresholds and to make the optimal business decision.
 
@@ -961,7 +961,7 @@ plt.ylabel('Proportion')
 
 <b> Insights: </b>
 
-Precision, Recall and Review rate are expressed as a proportion of total number of cases for each threshold selected for the classifier. For exaple, chosing the default threshold of 0.5 would imply:
+Precision, Recall and Review Rate are expressed as a proportion of total number of cases for each threshold selected for the classifier. For exaple, chosing the default threshold of 0.5 would imply:
 
 - A "retention action" is taken in about 50% of the cases
 - Precision is ~60%, meaning that 60% of the customers that are predicted as likely to unsuscribe ultimately will
