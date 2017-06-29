@@ -20,6 +20,7 @@ This document is organized as follows:
     - Define the Solver
     - Applying the Transfer
   - Results
+  - Appendix
 
 The post is intended as a walkthrough of the methodology and provides a complete codebase to implement your own NST model.
 
@@ -348,3 +349,27 @@ Here are some results. There is room for improvement but the combined images are
         </tr>
     </table>
 </div>
+
+## Appendix
+
+### Imported Libraries
+
+```python
+import math
+import keras
+import numpy as np
+import keras.backend as K
+import matplotlib.pyplot as plt
+import random
+import os
+from scipy.optimize import fmin_l_bfgs_b
+from scipy.misc import imsave
+from PIL import Image
+from keras import metrics
+from keras.applications.vgg16 import VGG16
+from keras.preprocessing import image
+from keras.models import Model, Sequential
+from keras.layers import *
+from keras.optimizers import Adam
+from keras.regularizers import l2
+```
