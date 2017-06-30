@@ -4,12 +4,8 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+I am a data scientist who enjoys staying updated and sharing solutions and insights whenever possible. You can learn more about me on my <a href="www.romanofoti.com/about.html" > personal website</a> and/or on my other social media accounts. 
 
-### More Information
+If you are interested in getting in touch, feel free to drop me a line via this <a href="www.romanofoti.com/contact.html" >form</a> or [email me](mailto:foti.romano@gmail.com) directly.
 
-A place to include any other types of information that you'd like to include about yourself.
 
-### Contact me
-
-[email@domain.com](mailto:email@domain.com)
