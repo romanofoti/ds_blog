@@ -68,3 +68,14 @@ Last step: how does the rest of the study domain looks like? Here is a map of th
 {% include image.html img="images/sandy_post/predicted_domain.png" title="Predicted domain" width="800" %}
 
 Overall, most of the area is colored in blue, which means that no damage to buildings is expected. However, pockets of vulnerability are clearly present, especially in the Rockaways, eastern Staten Island and north-western Staten Island. This is perfectly in line with the areas most hevily hit by Sandy, suggesting that the approach taken can indeed be used to predict damages for future events and/or to assess the effect of mitigation measures.
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101907146-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

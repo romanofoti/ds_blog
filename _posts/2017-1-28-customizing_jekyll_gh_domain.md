@@ -75,3 +75,14 @@ Now, you need to make sure that each of your local repositories - which you are 
 ## Conclusion
 
 Well, that is it, really. In retrospect, building multiple websites and hosting them on GitHub is not difficult at all, but I understand that some steps may be confusing (at least, they were to me at the beginning), so I hope that this offers some help to those of you whose structure and objectives in building their websites are similar to mine.
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101907146-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
