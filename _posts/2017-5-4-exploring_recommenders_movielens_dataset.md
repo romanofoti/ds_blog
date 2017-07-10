@@ -512,7 +512,7 @@ nn_model = build_nn_recommender(usr_inp, mov_inp, usr_emb, mov_emb)
 nn_model.fit([train_df['userIDX'], train_df['movieIDX']], train_df['rating'], batch_size=64, epochs=8,
              validation_data=([test_df['userIDX'], test_df['movieIDX']], test_df['rating']))
 
-nn_preds_ar = np.squeeze(bias_model.predict([test_df['userIDX'], test_df['movieIDX']]))
+nn_preds_ar = np.squeeze(nn_model.predict([test_df['userIDX'], test_df['movieIDX']]))
 
 print 'Neural Network MSE: ' + str(RMSE(nn_preds_ar, test_df['rating'].values, matrix=False)) 
 performance_dc['Neural Network'] = RMSE(nn_preds_ar, test_df['rating'].values, matrix=False)
