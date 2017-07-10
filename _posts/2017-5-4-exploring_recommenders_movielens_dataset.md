@@ -509,7 +509,7 @@ mov_inp, mov_emb = embedding_input('movie_in', n_movies, n_fact=50, l2regularize
 
 nn_model = build_nn_recommender(usr_inp, mov_inp, usr_emb, mov_emb)
 
-nn_model.fit([train_df['userIDX'], train_df['movieIDX']], train_df['rating'], batch_size=64, epochs=8,
+nn_model.fit([train_df['userIDX'], train_df['movieIDX']], train_df['rating'], batch_size=64, epochs=6,
              validation_data=([test_df['userIDX'], test_df['movieIDX']], test_df['rating']))
 
 nn_preds_ar = np.squeeze(nn_model.predict([test_df['userIDX'], test_df['movieIDX']]))
@@ -519,7 +519,7 @@ performance_dc['Neural Network'] = RMSE(nn_preds_ar, test_df['rating'].values, m
 ```
 
 ```python
-Neural Network MSE: 0.89208546115
+Neural Network MSE: 0.890825204386
 ```
 
 ## Summary
@@ -547,7 +547,7 @@ perf_df.sort_values(by='RMSE', ascending=True).reset_index(drop=True)
       </tr>
       <tr>
         <td>Neural Network</td>
-        <td>0.892085</td>
+        <td>0.890825</td>
       </tr>
       <tr>
         <td>Dot Product with Bias</td>
