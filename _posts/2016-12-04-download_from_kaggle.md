@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Downloading datasets from Kaggle using Python
+tags: Kaggle python AWS
 ---
 
 In this brief post, I will outline a simple procedure to automate the download of datasets from Kaggle.

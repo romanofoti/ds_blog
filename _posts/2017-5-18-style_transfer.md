@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Style over Matter
+tags: CNN machine-learning NST Keras
 ---
 
 I always wanted to be a great painter, able to beautifully mix colors and shapes and create works of art that would mesmerize people. But I was never good enough, so I am writing this post instead. One of the many things about art, and in particular paintings, that always fascinated me is the striking balance between style and substance, technique and content that talented artists apparently seamlessly achieve in their work. One, in fact, can be able to exactly replicate objects or shapes, but it is the fashion in which this is done that utlimately makes the difference between a nice picture and a great work of art. But while it is fairly easy to spot a Monet from a Raffaello, it is not trivial to identify the line that separating "style" from the "content" of a picture or image. Well, until this <a href="https://arxiv.org/pdf/1508.06576.pdf" >paper</a> came about, showing that style and content are, in fact, separable, and illustrating the procedure to tell a machine to do it for you.
