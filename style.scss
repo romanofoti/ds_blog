@@ -318,6 +318,16 @@ table td {
     border-left: 1px solid #e0e0e0;
 }
 
+/****************************************/
+/* Hidden Class for Tags management CSS */
+/****************************************/
+.hidden {
+  display: none!important;
+  visibility: hidden!important;
+}
+
+
+
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
 @import "highlights";
