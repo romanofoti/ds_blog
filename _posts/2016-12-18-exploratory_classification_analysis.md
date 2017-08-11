@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Walkthrough of an exploratory analysis for classification problems
-tags: machine-learning classification precision-recall EDA
+tags: machine-learning classification eda
 ---
 
 In this post I outline how to perform an exploratory analysis for a binary classification problem.

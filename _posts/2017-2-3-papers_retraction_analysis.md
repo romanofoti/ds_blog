@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Analysis of retractions in peer-reviewed journals
-tags: networks retractions
+tags: networks
 ---
 
 In this post, I look at a problem that has become more and more common over the last years in academia, that is, the bulk of papers that, either for misconduct, negligence, or simply for accidental human error, present inaccurate results and are ultimately retracted.

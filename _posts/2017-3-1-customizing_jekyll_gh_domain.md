@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Serving multiple Jekyll-GitHub sites on a custom domain
-tags: Jekyll, GitHub, HTML
+tags: jekyll github web
 ---
 
 Here I share my experience of hosting two Jekyll-powered websites on GitHub (using their GitHub Pages service) and hosting serving them from one custom domain. While there are a plethora of tutorials and posts out there that show how to do this as well, everyone's needs are personal and utlimately different and, if you are making it thus far as reading this post in your search, perhaps you have not found the right one for you yet.

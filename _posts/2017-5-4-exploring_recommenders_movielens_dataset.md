@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Exploring Recommender Systems
-tags: machine-learning recommenders CNN Keras
+tags: machine-learning recommenders cnn keras
 ---
 
 Recommender systems are ubiquitous nowadays and they exploit patterns in people's preferences and tastes to provide personalized recommendations to users. Collaborative Filtering Recommenders (CFR) are possibly the most common and powerful engines and are widely used in a variety of domains. 

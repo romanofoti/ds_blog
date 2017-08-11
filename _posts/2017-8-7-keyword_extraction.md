@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Extracting Keywords from Text
-tags: NLP TF-IDF machine-learning classification
+tags: nlp tf-idf machine-learning classification
 ---
 
 Keywords are used in several fields as a way to summarize and categorize natural text, such as papers, essays, news articles or blog posts. Keywords, or tags, allow a quick and easy categorization of available information, thus facilitating its access and search. However, while many of existing natural texts have been assiegned their own keywords, either by their authors or by third parties, the vast majority of the information out there is currently untagged and, in many cases, virtually inaccessible. This begs the question: how difficult is it to develop a system that performs automatic and reliable tagging of written documents?

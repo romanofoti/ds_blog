@@ -4,6 +4,10 @@
 //
 // IMPORTS
 //
+@import url(http://fonts.googleapis.com/css?family=Inconsolata);
+@import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light+Two);
+
+@import "/css/bootstrap.css";
 
 @import "reset";
 @import "variables";
@@ -325,7 +329,6 @@ table td {
   display: none!important;
   visibility: hidden!important;
 }
-
 
 
 // Settled on moving the import of syntax highlighting to the bottom of the CSS

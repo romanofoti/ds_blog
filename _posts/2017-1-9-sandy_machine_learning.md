@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Machine learning from Hurricane Sandy
-tags: machine-learning vulnerability 
+tags: machine-learning 
 ---
 
 In this post, we will look on how it is possible to use machine learning to identify areas that are vulnerable to natural disasters. The application is specifically tailored to analyze the damage patterns caused by Hurricane Sandy as it hits the East Coast in the Fall 2012.
