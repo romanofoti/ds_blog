@@ -13,10 +13,15 @@ layout: default
     Written on {{ page.date | date: "%B %e, %Y" }}
   </div>
 
-  {% assign sorted_tags = page.tags | sort %}
-  {% for tag in sorted_tags %}
-    <span class="tag"><a href="/#{{ tag }}">{{ tag }}</a></span>
-  {% endfor %}
+  <div class="post-tags">
+    <h4> Search for similar posts </h4>
+    <div class="list-group list-group-inline">
+      {% assign sorted_tags = page.tags | sort %}
+      {% for tag in sorted_tags %}
+        <span class="list-group-item"><a href="/archive/#{{ tag }}">{{ tag }}</a></span>
+      {% endfor %}
+    </div>
+  </div>
 
   {% include disqus.html %}
 </article>
