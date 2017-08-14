@@ -4,22 +4,67 @@ title: Archive
 permalink: /archive/
 ---
 
+
 <div class="container">
-  <div class="archive-post-list">
-   {% for post in site.posts %}
-       {% assign currentDate = post.date | date: "%Y" %}
-       {% if currentDate != myDate %}
-           {% unless forloop.first %}</ul>{% endunless %}
-           <h1>{{ currentDate }}</h1>
-           <ul>
-           {% assign myDate = currentDate %}
-       {% endif %}
-       <li>
-        <span>{{ post.date | date: "%B %-d, %Y" }}</span> - <a href="{{ post.url }}">{{ post.title }}</a>
-       </li>
-       {% if forloop.last %}</ul>{% endif %}
-   {% endfor %}
+
+  <div class="header">
+    <h2> Filter by tag </h2>
   </div>
-</div> 
 
+  <div class="list-group list-group-inline">
+    {% assign sorted_tags = site.tags | sort %}
+    {% for tag in sorted_tags %}
+      {% assign t = tag | first %}
+      {% assign posts = tag | last %}
+      <a href onclick="filter('{{ t }}'); return false;" class="list-group-item" id="{{ t }}-item">{{ t }}</a>
+    {% endfor %}
+  </div>
 
+  {% for tag in site.tags %}
+    {% assign t = tag | first %}
+    {% assign posts = tag | last %}
+    <div class="blog-list-container hidden" id="{{ t }}-container">
+      <ul class="blog-list">
+        {% for post in posts %}
+          {% if post.tags contains t %}
+            <li>
+              <span class="blog-item-date">{{ post.date | date: "%d %b %Y" }}</span>
+              <a href="{{ post.url }}">{{ post.title }}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+
+      {% assign numPosts = posts | size %}
+      {% if numPosts == 1 %}
+        <p>{{ posts | size }} post containing tag <b>{{ t }}</b></p>
+      {% else %}
+        <p>{{ posts | size }} posts containing tag <b>{{ t }}</b></p>
+      {% endif %}
+      <p>
+        <a href="/archive/">Clear Selection</a>
+      </p>
+    </div>
+  {% endfor %}
+
+  <h2> All posts </h2>
+
+  <div>
+    <div class="archive-post-list">
+     {% for post in site.posts %}
+         {% assign currentDate = post.date | date: "%Y" %}
+         {% if currentDate != myDate %}
+             {% unless forloop.first %}</ul>{% endunless %}
+             <h3 style="margin: 0px">{{ currentDate }}</h3>
+             <ul>
+             {% assign myDate = currentDate %}
+         {% endif %}
+         <li>
+          <span>{{ post.date | date: "%B %-d, %Y" }}</span> - <a href="{{ post.url }}">{{ post.title }}</a>
+         </li>
+         {% if forloop.last %}</ul>{% endif %}
+     {% endfor %}
+    </div>
+  </div>
+
+</div>

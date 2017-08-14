@@ -323,12 +323,35 @@ table td {
 }
 
 /****************************************/
-/* Hidden Class for Tags management CSS */
+/* Tags management CSS */
 /****************************************/
 .hidden {
   display: none!important;
   visibility: hidden!important;
 }
+
+
+.list-group-condensed > .list-group-item {
+  padding: 5px 10px;
+}
+
+.list-group-inline > .list-group-item {
+  display: inline-block;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+.list-group-item.active,
+.list-group-item.active:focus,
+.list-group-item.active:hover {
+}
+
+.list-group-item.active>a,
+.list-group-item.active:focus>a,
+.list-group-item.active:hover>a {
+  color: #fff;
+}
+
 
 
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
