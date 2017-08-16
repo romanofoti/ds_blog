@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Extracting Keywords from Text
+title: Extracting keywords from text
 tags: nlp tf-idf machine-learning classification
 ---
 
@@ -227,9 +227,9 @@ def fit_predict_clf(tfidf_trn_smx, tfidf_tst_smx, target_mlb, LE, MLB, thresh):
 
 ## Results
 
-The following steps follow the implementation described above. Separate results are provided for using just the title or the body of the document, as provided from the Ask Ubuntu dataset. As of now, the implementations are independent (however, do pay attention to train the classifier properly), but a simple next step could be to combine the two, possibly by learning the respective weight from data.
+The following steps follow the implementation described above. Separate results are provided for using just the title or the body of the document, as provided from the Ask Ubuntu dataset. As of now, the implementations are independent, but a simple next step could be to combine the two, possibly by learning the respective weight from data.
 
-Notice also that the classifier outputs a set of probabilities for each document. A simple analysis (not shown here) showed that the optimal threshold for assigning a keyword to a given document is 0.2, so it is this value that will be used in this document.
+Notice also that the classifier outputs a set of probabilities for each document. A simple analysis (not shown here) showed that the optimal threshold for assigning a keyword to a given document is 0.2, so that is this value that is used in this document.
 
 ```python
 source_path = './source_dataset/'
@@ -262,7 +262,7 @@ tst_bd_pred_kw, CLF = fit_predict_clf(body_tfifd_trn_smx, body_tfifd_tst_smx, ta
 
 ## Discussion
 
-The approach above attains a Mean-F-Score of 0.32 and 0.30 using, respectively, just the title or just the body of the question. The results is encouraging, especially because it is obtained with a small training set, without considering title and body simultaneously, and with a very simple preprocessing of the dataset, and offers a good benchmark for further development and/or refinements.
+The approach above attains a Mean-F-Score of 0.32 and 0.30 using, respectively, just the title or just the body of the question. The result is encouraging, especially because it is obtained with a small training set, without considering title and body simultaneously, and with a very simple preprocessing of the dataset, and offers a good benchmark for further development and/or refinements.
 
 ## Appendix
 
