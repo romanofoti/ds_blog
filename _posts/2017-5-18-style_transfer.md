@@ -110,7 +110,7 @@ def vgg_avgpooling(vgg_model):
 
 Style transfer is achieved iteratively by minimizing a loss function between the computed image and the content target and the style target. Separate loss functions are defined for style and content and then combined linearly together to produce the total loss to be minimized.
 
-To this aim, Keras backend will be called and used to build the computational graph. 
+To this aim, Keras backend will be called and used to build the computational graph.
 
 #### Content Loss
 
@@ -199,7 +199,7 @@ def get_content_targets(style_transfer_model, content_ar):
     content_model = Model(style_transfer_model.input, content_layer)
     content_targ = K.variable(content_model.predict(content_ar))
     return content_layer, content_targ
-#end 
+#end
 
 def get_style_targets(style_transfer_model, style_ar):
     '''Input: style transfer model and numpy array of the style image
@@ -210,7 +210,7 @@ def get_style_targets(style_transfer_model, style_ar):
     style_model = Model(style_transfer_model.input, style_layer_ls)
     style_targ_ls = [K.variable(o) for o in style_model.predict(style_ar)]
     return style_layer_ls, style_targ_ls
-#end 
+#end
 ```
 
 ### Define the Solver
@@ -235,7 +235,7 @@ class Evaluator(object):
         loss_, self.grad_values = self.f([x.reshape(self.shp)])
         return loss_.astype(np.float64)
     #end
-    def grads(self, x): 
+    def grads(self, x):
         return self.grad_values.flatten().astype(np.float64)
     #end    
 #end
@@ -332,24 +332,6 @@ Here are some results. There is room for improvement but the combined images are
     </table>
 </div>
 
-<div id="image-table">
-    <table>
-        <tr>
-            <td style="padding:10px">
-                <h4> Content Image </h4>
-                <img src="../images/style_transfer_post/trump.jpg" height="250" width="300">
-              </td>
-            <td style="padding:10px">
-                <h4> Style Image </h4>
-                <img src="../images/style_transfer_post/munch.jpeg" height="250" width="300">
-             </td>
-            <td style="padding:10px">
-                <h4> Style Transfer </h4>
-                <img src="../images/style_transfer_post/tr_mc_res_at_iteration_15.png" height="250" width="300">
-             </td>
-        </tr>
-    </table>
-</div>
 
 ## Appendix
 
